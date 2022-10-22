@@ -12,8 +12,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff4f4f4),
       appBar: AppBar(
-        title: Text("PRODUTOS"),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text("MEUS PRODUTOS", style: TextStyle(
+          color: Colors.black,
+          fontSize: 14
+        )),
         centerTitle: true,
       ),
       body: Container(

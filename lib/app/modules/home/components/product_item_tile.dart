@@ -18,18 +18,23 @@ class ProductItemTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       decoration: BoxDecoration(
+        color: Colors.white,
         border: Border.all(
           color: Colors.grey.withOpacity(.5),
           width: 1
-        )
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(3))
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
             Container(
               width: 110,
               height: 100,
-              color: Colors.grey.withOpacity(.5),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(.5),
+              ),
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
                 imageUrl: product.photo.toString(),
@@ -41,15 +46,23 @@ class ProductItemTile extends StatelessWidget {
             Expanded(
                 flex: 1,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      alignment: WrapAlignment.spaceBetween,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(product.title.toString()),
-                        IconButton(
-                            onPressed: () => showModalBottomSheet(
+                        Expanded(
+                            child: Text(product.title.toString(), style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              height: 1.4,
+                            ), maxLines: 2, overflow: TextOverflow.ellipsis),
+                        ),
+                        GestureDetector(
+                          child: Icon(Icons.more_horiz),
+                            onTap:() => showModalBottomSheet(
                                 context: context,
                                 builder: (BuildContext ctx) => Container(
                                   padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
@@ -92,12 +105,22 @@ class ProductItemTile extends StatelessWidget {
                                   ),
                                 )
                             ),
-                            icon: Icon(Icons.more_horiz)
                         )
                       ],
                     ),
-                    Text(product.type.toString()),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Color(0xffc0d281).withOpacity(.5),
+                        borderRadius: BorderRadius.circular(5)
+                      ),
+                      child: Text(product.type.toString(), style: TextStyle(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold
+                      )),
+                    ),
+                    const SizedBox(height: 10),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -108,7 +131,7 @@ class ProductItemTile extends StatelessWidget {
                                 initialRating: product.rating!.toDouble(),
                                 ignoreGestures: true,
                                 unratedColor: Colors.grey.withOpacity(.5),
-                                itemSize: 24.0,
+                                itemSize: 20.0,
                                 minRating: 0,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
@@ -120,7 +143,12 @@ class ProductItemTile extends StatelessWidget {
                                 onRatingUpdate: (rating){}
                             )
                         ),
-                        Text("${product.price.toString().getCurrency()}")
+                        Text("${product.price.toString().getCurrency()}", style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45
+
+                        ))
                       ],
                     )
                   ],
